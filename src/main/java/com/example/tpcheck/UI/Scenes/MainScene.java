@@ -19,7 +19,7 @@ import org.kordamp.bootstrapfx.BootstrapFX;
 import java.util.Objects;
 
 public class MainScene {
-    private Button loginButton;
+    private Button loginButton,registerButton;
     private Pane pane;
     private StackPane st;
     private Scene current;
@@ -54,6 +54,12 @@ public class MainScene {
             Dashboard newScene = new Dashboard();
             Stage current = (Stage)getLoginButton().getScene().getWindow();
             current.setScene(newScene.getDashboardScene());
+        });
+
+        getRegisterButton().setOnAction(event -> {
+            Registration newScene = new Registration();
+            Stage current = (Stage)getRegisterButton().getScene().getWindow();
+            current.setScene(newScene.getCurrent());
         });
     }
 
@@ -128,12 +134,12 @@ public class MainScene {
                 "-fx-border-color: #675c5a;");
         getLoginButton().getStyleClass().addAll("btn-primary", "btn-lg");
 
-        Button forgotPass = new Button("Forgot password?");
-        forgotPass.setStyle("-fx-background-color: transparent;" +
-                "-fx-border-color: #675c5a;");
-        forgotPass.setTextFill(Color.rgb(92,84,82));
-        forgotPass.getStyleClass().add("btn-sm");
-        hbox.getChildren().addAll(getLoginButton(),forgotPass);
+        setRegisterButton(new Button("Don't have account yet?"));
+        getRegisterButton().setStyle("-fx-background-color: transparent;" +
+                "-fx-border-color: #5a504e;");
+        getRegisterButton().setTextFill(Color.rgb(90,80,78));
+        getRegisterButton().getStyleClass().add("btn-sm");
+        hbox.getChildren().addAll(getLoginButton(),getRegisterButton());
         return hbox;
     }
 
@@ -167,5 +173,13 @@ public class MainScene {
 
     public void setLoginButton(Button loginButton) {
         this.loginButton = loginButton;
+    }
+
+    private Button getRegisterButton() {
+        return registerButton;
+    }
+
+    private void setRegisterButton(Button registerButton) {
+        this.registerButton = registerButton;
     }
 }

@@ -33,6 +33,8 @@ public class HelloApplication extends Application {
         stage.setTitle("TPCheck - Travel Packing Checklist App");
         stage.setScene(main.getCurrent());
         stage.show();
+
+
     }
 
     public static void main(String[] args) {
