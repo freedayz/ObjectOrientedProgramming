@@ -1,6 +1,6 @@
 package com.example.tpcheck.UI.Scenes;
 
-import com.example.tpcheck.Core.Configurator;
+import com.example.tpcheck.Core.LocalDB.LocalDB;
 import com.example.tpcheck.UI.Settings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,11 +18,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class Registration {
 
-    private TextField passwordField;
+    private PasswordField passwordField;
     private TextField usernameField;
     private PasswordField passwordAgainField;
     private Button loginButton;
@@ -73,8 +75,14 @@ public class Registration {
         getLoginButton().setOnAction(event -> {
             if (checkInputs() == 0) {
                 System.out.println("register_success");
-                Configurator.getInstance().CommitNode(getUsernameField().getText(),getPasswordField().getText());
-                Configurator.getInstance().Push();
+                try {
+                    LocalDB.insert(
+                            getUsernameField().getText(),
+                            getPasswordField().getText()
+                    );
+                } catch (SQLException | ClassNotFoundException | IOException e) {
+                    throw new RuntimeException(e);
+                }
                 Dashboard newScene = new Dashboard();
                 Stage current = (Stage)getLoginButton().getScene().getWindow();
                 current.setScene(newScene.getDashboardScene());
@@ -216,11 +224,11 @@ public class Registration {
         this.loginButton = loginButton;
     }
 
-    public TextField getPasswordField() {
+    public PasswordField getPasswordField() {
         return passwordField;
     }
 
-    public void setPasswordField(TextField passwordField) {
+    public void setPasswordField(PasswordField passwordField) {
         this.passwordField = passwordField;
     }
 

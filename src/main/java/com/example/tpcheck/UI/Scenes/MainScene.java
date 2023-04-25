@@ -1,5 +1,6 @@
 package com.example.tpcheck.UI.Scenes;
 
+import com.example.tpcheck.Core.LocalDB.LocalDB;
 import com.example.tpcheck.UI.Settings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,6 +17,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class MainScene {
@@ -23,6 +26,8 @@ public class MainScene {
     private Pane pane;
     private StackPane st;
     private Scene current;
+    private TextField userName;
+    private PasswordField userPass;
 
     public MainScene() {
         this.st = new StackPane();
@@ -103,11 +108,11 @@ public class MainScene {
         Text desc = new Text(label);
         desc.getStyleClass().add("h5");
         desc.setFill(Color.rgb(64,60,59));
-        PasswordField passwordField = new PasswordField();
-        passwordField.setPrefSize(Settings.getInstance().getMaxWidth()-120,30);
-        passwordField.setPromptText("Enter your password");
-        passwordField.setStyle("-fx-border-color: #675c5a;");
-        hBox.getChildren().addAll(desc,passwordField);
+        this.userPass = new PasswordField();
+        userPass.setPrefSize(Settings.getInstance().getMaxWidth()-120,30);
+        userPass.setPromptText("Enter your password");
+        userPass.setStyle("-fx-border-color: #675c5a;");
+        hBox.getChildren().addAll(desc,userPass);
         return hBox;
     }
 
@@ -117,11 +122,11 @@ public class MainScene {
         Text desc = new Text(label);
         desc.setFill(Color.rgb(64,60,59));
         desc.getStyleClass().add("h5");
-        TextField usernameInput = new TextField();
-        usernameInput.setPrefSize(Settings.getInstance().getMaxWidth()-120,30);
-        usernameInput.setPromptText("Enter your username");
-        usernameInput.setStyle("-fx-border-color: #675c5a;");
-        hBox.getChildren().addAll(desc,usernameInput);
+        this.userName = new TextField();
+        userName.setPrefSize(Settings.getInstance().getMaxWidth()-120,30);
+        userName.setPromptText("Enter your username");
+        userName.setStyle("-fx-border-color: #675c5a;");
+        hBox.getChildren().addAll(desc,userName);
         return hBox;
     }
 

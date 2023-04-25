@@ -5,7 +5,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -27,7 +29,7 @@ public class Dashboard {
 
     private void initializeScene() {
         setPane(new Pane());
-        getPane().setStyle("-fx-background-color: #817371;");
+        getPane().setStyle("-fx-background-color: #fff;"); //#817371
         getPane().setMaxWidth(Settings.getInstance().getMaxWidth());
         getPane().setMaxHeight(Settings.getInstance().getMaxHeight());
         getStackPane().getChildren().add(getPane());
@@ -50,7 +52,24 @@ public class Dashboard {
     }
 
     private void initializeElements() {
+        HBox hbox = new HBox(30); // 10 is the vertical spacing between child nodes
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setPadding(new Insets(20));
+        Button b = new Button("Test");
+        Button b2 = new Button("test2");
+        hbox.getChildren().addAll(
+                createBtnLayout("Add new", "btn-success"),
+                createBtnLayout("Edit", "btn-warning"),
+                createBtnLayout("Delete", "btn-danger")
+        );
 
+        getPane().getChildren().addAll(hbox);
+    }
+
+    private Button createBtnLayout(String innerHTML, String type) {
+        Button b = new Button(innerHTML);
+        b.getStyleClass().addAll(type);
+        return b;
     }
 
     public Scene getDashboardScene() {
